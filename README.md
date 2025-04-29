@@ -57,6 +57,9 @@ print(df_phy_ad)
 ```
 Going through 20+ csv files contained in this dataset, I have gone through and extracted the physical attribute/ background info of each subject that would be useful into a new csv. Additionaly, I calculated Length of Stay (LOS) by subtracting admission time from discharge time in days (used for prediction later). Since many of these fields were categorical, mapping was used to provide numeric values using custom dictionaries and assigned 0 to any missing or unrecognized entries to keep things consistent.
 
+<img src="https://github.com/user-attachments/assets/4f7d2213-cad9-4733-b3f7-7182c6fbbcbe" alt="Alt Text" width="450" height="300">
+
+
 # ICD processing
 After preparing the physical attribute data, the next step focused on extracting and encoding diagnosis ICD codes. Each subject in the dataset can have multiple ICD codes, with each one appearing in a separate row. Total unique ICD codes for all patientswere over 100,000. To make this data usable for modeling, I converted the ICD codes into a one-hot encoded format using a pivot table. Each column represents a unique ICD code, and a value of 1 indicates that the patient had that diagnosis at least once. This creates a uniform, high-dimensional vector for each patient that summarizes their medical history in a structured way. Using this format, models can easily learn patterns across patients based on shared diagnoses, without any implicit ordering or bias that might come from label encoding.
 
@@ -126,6 +129,10 @@ merged_df.to_csv("/content/phy_dicd.csv", index = False)
 ```
 This contains filter the dataset to dropping subjects below the 2 standard deviations above the mean, performing the one-hot encoding using pivot tables, concatenating strings to ICD codes to readability and differentiability between different types of ICD codes, as well as merging with physical attributes csv resulting in a csv with ICD codes added.
 
+
+<img src="https://github.com/user-attachments/assets/16c1bdd7-b1ba-47c1-bc4f-92c1b90105eb" alt="Alt Text" width="450" height="300">
+
+
 ```
 df_phy = pd.read_csv("/content/PhysicalandAdmission.csv")
 df_icd = pd.read_csv("/content/procedures_icd.csv")
@@ -182,6 +189,9 @@ merged_df = merged_df.fillna(0)
 merged_df.to_csv("/content/allICD.csv", index = False)
 ```
 Continuation of ICD one-hot encoding but for the procedures ICD codes.
+
+<img src="https://github.com/user-attachments/assets/842d3fb2-6b06-459b-8ce3-04dff870702f" alt="Alt Text" width="450" height="300">
+
 
 
 
